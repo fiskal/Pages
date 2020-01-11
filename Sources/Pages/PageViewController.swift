@@ -36,6 +36,7 @@ struct PageViewController: UIViewControllerRepresentable {
     var transitionStyle: UIPageViewController.TransitionStyle
     var bounce: Bool
     var wrap: Bool
+    var enabled: Bool
     var controllers: [UIViewController]
 
     func makeCoordinator() -> PagesCoordinator {
@@ -54,6 +55,7 @@ struct PageViewController: UIViewControllerRepresentable {
         for view in pageViewController.view.subviews {
             if let scrollView = view as? UIScrollView {
                 scrollView.delegate = context.coordinator
+                scrollView.isScrollEnabled = enabled
                 break
             }
         }
@@ -123,6 +125,8 @@ extension PagesCoordinator: UIScrollViewDelegate {
                 disableVerticalBounce(scrollView)
             }
         }
+        
+        scrollView.isScrollEnabled = parent.enabled
     }
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

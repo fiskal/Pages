@@ -37,6 +37,7 @@ public struct Pages: View {
     var transitionStyle: UIPageViewController.TransitionStyle
     var bounce: Bool
     var wrap: Bool
+    var enabled: Bool
     var hasControl: Bool
     var pageControl: UIPageControl? = nil
     var controlAlignment: Alignment
@@ -65,6 +66,7 @@ public struct Pages: View {
            - transitionStyle: Whether to perform a page curl or a scroll effect on page turn.
            - bounce: Whether to bounce back when a user tries to scroll past all the pages.
            - wrap: A flag indicating whether to wrap the pages circularly when the user scrolls past the beginning or end.
+           - enabled: Whether to disable touches or not.
            - hasControl: Whether to display a page control or not.
            - control: A user defined page control.
            - controlAlignment: What position to put the page control.
@@ -76,6 +78,7 @@ public struct Pages: View {
         transitionStyle: UIPageViewController.TransitionStyle = .scroll,
         bounce: Bool = true,
         wrap: Bool = false,
+        enabled: Bool = true,
         hasControl: Bool = true,
         control: UIPageControl? = nil,
         controlAlignment: Alignment = .bottom,
@@ -86,6 +89,7 @@ public struct Pages: View {
         self.bounce = bounce
         self.wrap = wrap
         self.hasControl = hasControl
+        self.enabled = enabled
         self.pageControl = control
         self.controlAlignment = controlAlignment
         self.pages = pages()
@@ -100,6 +104,7 @@ public struct Pages: View {
                 transitionStyle: transitionStyle,
                 bounce: bounce,
                 wrap: wrap,
+                enabled: enabled,
                 controllers: pages.map {
                     let h = UIHostingController(rootView: $0)
                     h.view.backgroundColor = .clear

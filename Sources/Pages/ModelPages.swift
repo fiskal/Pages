@@ -38,6 +38,7 @@ public struct ModelPages<Data, Content>: View where Data: RandomAccessCollection
     private var transitionStyle: UIPageViewController.TransitionStyle
     private var bounce: Bool
     private var wrap: Bool
+    private var enabled: Bool
     private var hasControl: Bool
     private var pageControl: UIPageControl? = nil
     private var controlAlignment: Alignment
@@ -71,6 +72,7 @@ public struct ModelPages<Data, Content>: View where Data: RandomAccessCollection
             - transitionStyle: Whether to perform a page curl or a scroll effect on page turn.
             - bounce: Whether to bounce back when a user tries to scroll past all the pages.
             - wrap: A flag indicating whether to wrap the pages circularly when the user scrolls past the beginning or end.
+            - enabled: Whether to disable touches or not.
             - hasControl: Whether to display a page control or not.
             - control: A user defined page control.
             - controlAlignment: What position to put the page control.
@@ -83,6 +85,7 @@ public struct ModelPages<Data, Content>: View where Data: RandomAccessCollection
         transitionStyle: UIPageViewController.TransitionStyle = .scroll,
         bounce: Bool = true,
         wrap: Bool = false,
+        enabled: Bool = true,
         hasControl: Bool = true,
         control: UIPageControl? = nil,
         controlAlignment: Alignment = .bottom,
@@ -93,6 +96,7 @@ public struct ModelPages<Data, Content>: View where Data: RandomAccessCollection
         self.transitionStyle = transitionStyle
         self.bounce = bounce
         self.wrap = wrap
+        self.enabled = enabled
         self.hasControl = hasControl
         self.pageControl = control
         self.controlAlignment = controlAlignment
@@ -108,6 +112,7 @@ public struct ModelPages<Data, Content>: View where Data: RandomAccessCollection
                 transitionStyle: transitionStyle,
                 bounce: bounce,
                 wrap: wrap,
+                enabled: enabled,
                 controllers: (0..<items.count).map { i in
                     let h = UIHostingController(rootView: template(i, items[i]))
                     h.view.backgroundColor = .clear
